@@ -1,0 +1,20 @@
+# Используем официальный образ Python
+FROM mypythontest
+
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
+
+# Копируем requirements файл в рабочую директорию
+COPY req.txt .
+
+# Устанавливаем зависимости
+RUN pip install --no-cache-dir -r req.txt
+
+# Копируем все остальные файлы в рабочую директорию
+COPY . .
+
+# Устанавливаем переменные окружения для базы данных
+ENV PYTHONUNBUFFERED=1
+
+# Команда для запуска теста WebSocket
+CMD ["python", "test_ws.py"]
